@@ -1,3 +1,26 @@
+/*************************************************************************
+**
+** Copyright (C) 2014-2014 by Ilya Petrash
+** All rights reserved.
+** Contact: gil9red@gmail.com, ip1992@inbox.ru
+**
+** This program is free software; you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation; either version 3 of the License, or
+** (at your option) any later version.
+**
+** This program is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+** GNU General Public License for more details.
+**
+** You should have received a copy of the GNU General Public License
+** along with this program; if not, write to the
+** Free Software Foundation, Inc.,
+** 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+**
+**************************************************************************/
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -7,23 +30,41 @@
 #include <QFileInfo>
 #include <QUrl>
 #include <QMouseEvent>
+#include <QSettings>
 
-/// PUBLIC
+const QString getFilter()
+{
+    static QString filter;
+    filter += "Файлы изображений (";
+    foreach ( const QByteArray & format, QImageReader::supportedImageFormats() )
+        filter += " *." + format;
+    filter += " )";
+
+    return filter;
+}
+const QString getIniPath()
+{
+    const static QString iniPath( qApp->applicationDirPath() + "/settings.ini" );
+    return iniPath;
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->scrollArea->installEventFilter( this );
 
     connect( ui->actionOpen, SIGNAL( triggered() ), SLOT( open() ) );
-    connect( ui->actionQuit, SIGNAL( triggered() ), qApp, SLOT( quit() ) );
+    connect( ui->actionQuit, SIGNAL( triggered() ), SLOT( close() ) );
 
     // Расшифровываем qr коды
     zxing.setDecoder( QZXing::DecoderFormat_QR_CODE );
 
-    ui->splitter->setSizes( QList < int > () << ui->labelQRCodeImage->maximumWidth() );
-
-    ui->scrollArea->installEventFilter( this );
+    QSettings ini( getIniPath(), QSettings::IniFormat );
+    ui->splitter->restoreState( ini.value( ui->splitter->objectName() ).toByteArray() );
+    restoreState( ini.value( "State" ).toByteArray() );
+    restoreGeometry( ini.value( "Geometry" ).toByteArray() );
 }
 
 MainWindow::~MainWindow()
@@ -31,27 +72,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-/// PUBLIC SLOTS
 void MainWindow::open()
 {
-    QString filter;
-    filter += "Файлы изображений (";
-
-    foreach ( const QByteArray & format , QImageReader::supportedImageFormats() )
-        filter += " *." + format;
-
-    filter += " )";
-
-    QString path = QFileDialog::getOpenFileName( this,
-                                                 QString(),
-                                                 QString(),
-                                                 filter );
-
+    QString path = QFileDialog::getOpenFileName( this, QString::null, QString::null, getFilter() );
     if ( path.isEmpty() )
         return;
 
     ui->labelQRCodeImage->setPixmap( QPixmap( path ) );
-
     decode();
 }
 void MainWindow::decode()
@@ -63,7 +90,16 @@ void MainWindow::decode()
     ui->labelSizeText->setText( QString::number( decodeText.size() ) );
 }
 
-/// PROTECTED
+void MainWindow::on_pButtonOpen_clicked()
+{
+    open();
+}
+void MainWindow::on_pButtonQuit_clicked()
+{
+    close();
+}
+
+
 void MainWindow::dragEnterEvent( QDragEnterEvent * event )
 {
     const QMimeData * mime = event->mimeData();
@@ -91,7 +127,6 @@ void MainWindow::dropEvent( QDropEvent * event )
     const QList < QUrl > & urls = mime->urls();
 
     QString path = urls.first().toLocalFile();
-
     ui->labelQRCodeImage->setPixmap( QPixmap( path ) );
 
     decode();
@@ -100,7 +135,6 @@ void MainWindow::dropEvent( QDropEvent * event )
 bool MainWindow::eventFilter( QObject * object, QEvent * event )
 {
     QScrollArea * scrollArea = ui->scrollArea;
-
     if ( object == scrollArea )
     {
         if ( event->type() == QEvent::MouseButtonPress )
@@ -110,8 +144,7 @@ bool MainWindow::eventFilter( QObject * object, QEvent * event )
             {
                 lastPos = mouseEvent->pos();
 
-                if( scrollArea->horizontalScrollBar()->isVisible()
-                        || scrollArea->verticalScrollBar()->isVisible() )
+                if( scrollArea->horizontalScrollBar()->isVisible() || scrollArea->verticalScrollBar()->isVisible() )
                     scrollArea->setCursor( Qt::ClosedHandCursor );
                 else
                     scrollArea->setCursor( Qt::ArrowCursor );
@@ -139,4 +172,13 @@ bool MainWindow::eventFilter( QObject * object, QEvent * event )
     }
 
     return QWidget::eventFilter(object, event);
+}
+void MainWindow::closeEvent(QCloseEvent *)
+{
+    QSettings ini( getIniPath(), QSettings::IniFormat );
+    ini.setValue( ui->splitter->objectName(), ui->splitter->saveState() );
+    ini.setValue( "State", saveState() );
+    ini.setValue( "Geometry", saveGeometry() );
+
+    qApp->quit();
 }

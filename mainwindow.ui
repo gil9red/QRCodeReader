@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>526</width>
-    <height>378</height>
+    <width>458</width>
+    <height>458</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>QRCode Reader</string>
+   <string>Сканер qr-кода. Версия нулевая. Автор: Илья Петраш (gil9red).</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -35,7 +35,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>506</width>
+          <width>438</width>
           <height>60</height>
          </rect>
         </property>
@@ -49,7 +49,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Поместите изображание с QR-кодом</string>
+            <string>Поместите изображение с QR-кодом</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -62,24 +62,8 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>15</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
@@ -92,7 +76,7 @@
           <item>
            <widget class="QLabel" name="labelSizeText">
             <property name="text">
-             <string>   </string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -128,6 +112,62 @@
       </widget>
      </widget>
     </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="pButtonOpen">
+        <property name="toolTip">
+         <string>Открыть файл изображения с qr-кодом</string>
+        </property>
+        <property name="statusTip">
+         <string>Открыть файл изображения с qr-кодом</string>
+        </property>
+        <property name="text">
+         <string>Открыть...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pButtonQuit">
+        <property name="toolTip">
+         <string>Закрыть приложение</string>
+        </property>
+        <property name="statusTip">
+         <string>Закрыть приложение</string>
+        </property>
+        <property name="text">
+         <string>Выход</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/gil9red/QRCodeReader&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Сайт&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+      <property name="openExternalLinks">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -135,7 +175,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>526</width>
+     <width>458</width>
      <height>20</height>
     </rect>
    </property>
