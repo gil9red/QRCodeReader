@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Сканер qr-кода. Версия нулевая. Автор: Илья Петраш (gil9red).</string>
+   <string>QRCodeReader </string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -36,7 +36,7 @@
           <x>0</x>
           <y>0</y>
           <width>438</width>
-          <height>60</height>
+          <height>69</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -49,7 +49,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Поместите изображение с QR-кодом</string>
+            <string>Drop file with QR Code</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -69,7 +69,7 @@
           <item>
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Символов: </string>
+             <string>Letters:</string>
             </property>
            </widget>
           </item>
@@ -98,7 +98,7 @@
         <item>
          <widget class="QPlainTextEdit" name="pTextEditQRCodeText">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -123,7 +123,7 @@
          <string>Открыть файл изображения с qr-кодом</string>
         </property>
         <property name="text">
-         <string>Открыть...</string>
+         <string>Open</string>
         </property>
        </widget>
       </item>
@@ -149,7 +149,7 @@
          <string>Закрыть приложение</string>
         </property>
         <property name="text">
-         <string>Выход</string>
+         <string>Quit</string>
         </property>
        </widget>
       </item>
@@ -158,7 +158,7 @@
     <item>
      <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/gil9red/QRCodeReader&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Сайт&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/gil9red/QRCodeReader&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Site&lt;/span&gt;&lt;/a&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -176,12 +176,12 @@
      <x>0</x>
      <y>0</y>
      <width>458</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>Файл</string>
+     <string>File</string>
     </property>
     <addaction name="actionOpen"/>
     <addaction name="separator"/>
@@ -192,7 +192,7 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionOpen">
    <property name="text">
-    <string>Открыть...</string>
+    <string>Open</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -200,7 +200,7 @@
   </action>
   <action name="actionQuit">
    <property name="text">
-    <string>Выход</string>
+    <string>Quit</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>

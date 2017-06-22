@@ -31,11 +31,12 @@
 #include <QUrl>
 #include <QMouseEvent>
 #include <QSettings>
+#include <QScrollBar>
 
 const QString getFilter()
 {
     static QString filter;
-    filter += "Файлы изображений (";
+    filter += "Images (";
     foreach ( const QByteArray & format, QImageReader::supportedImageFormats() )
         filter += " *." + format;
     filter += " )";
@@ -83,8 +84,8 @@ void MainWindow::open()
 }
 void MainWindow::decode()
 {
-    const QImage & qrImage = ui->labelQRCodeImage->pixmap()->toImage();
-    const QString & decodeText = zxing.decodeImage( qrImage );   
+    QImage qrImage = ui->labelQRCodeImage->pixmap()->toImage();
+    const QString & decodeText = zxing.decodeImage( qrImage );
 
     ui->pTextEditQRCodeText->setPlainText( decodeText );
     ui->labelSizeText->setText( QString::number( decodeText.size() ) );

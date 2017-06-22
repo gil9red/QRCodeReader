@@ -28,6 +28,7 @@
 #include <QDropEvent>
 #include <QDragEnterEvent>
 #include <QEvent>
+#include <QScrollArea>
 
 namespace Ui {
     class MainWindow;
