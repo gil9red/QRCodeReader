@@ -1,7 +1,7 @@
 QRCodeReader
 ============
 
-Сканер qr-кода.
+QRCode reader
 
 ##
 
